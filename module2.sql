@@ -78,14 +78,40 @@ FROM professor p
 JOIN section s
   ON p.section_id = s.section_id;
 
--- 2.7 Créer une variable contenant votre âge. Créer une seconde variable contenant votre nom. Afficher maintenant la concaténation de ces variables.
--- Cette opération pose-t-elle problème ? Avez-vous utilisé la fonction CONVERT dans ce cas ? Aurait-elle été utile ? Si vous ne l’avez pas utilisée, n’hésitez pas à la faire ! Cela change-t-il la réponse ?
+-- 2.7 Créer une variable contenant votre âge. Créer une seconde variable contenant votre nom. 
+-- Afficher maintenant la concaténation de ces variables.
+-- Cette opération pose-t-elle problème ? Avez-vous utilisé la fonction CONVERT dans ce cas ? 
+-- Aurait-elle été utile ? Si vous ne l’avez pas utilisée, n’hésitez pas à la faire ! 
+-- Cela change-t-il la réponse ?
 
+SET @age = 25, @nom = 'Geerts';
+SELECT CONCAT(@age, ' ', @nom);
 
+-- Conversion implicite en VARCHAR
+-- CONVERT vers VARCHAR n'est pas disponible
 
--- 2.8 Générer (random) 3 variables entières. Afficher l’addition de ces trois variables dans une table temporaire. La colonne utilisée pour l’affichage aura pour nom « Résultat »
+-- SET @age = 25, @nom = 'Geerts';
+-- SELECT CONCAT(CONVERT(@age, VARCHAR), ' ', @nom);
 
+-- 2.8 Générer (random) 3 variables entières. 
+-- Afficher l’addition de ces trois variables dans une table temporaire. 
+-- La colonne utilisée pour l’affichage aura pour nom « Résultat »
 
+SET @nb1 = ROUND(RAND() * 10);
+SET @nb2 = ROUND(RAND() * 10);
+SET @nb3 = ROUND(RAND() * 10);
+
+CREATE TEMPORARY TABLE temp (
+
+  resultat INT
+  
+);
+
+-- Insérer les 3 variables
+INSERT INTO temp VALUES (@nb1 + @nb2 + @nb3);
+
+-- Afficher le contenu
+SELECT * FROM temp;
 
 -- 2.9 Déclarer une table temporaire qui contiendra les données issues 
 -- des colonnes professor_name et professor_surname de la table professor.
