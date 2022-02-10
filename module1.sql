@@ -1,0 +1,46 @@
+--
+-- SQL Procédural
+-- Web Apps 
+-- 
+
+-- Module 1
+
+-- 1. Se connecter à MySQL et créer une nouvelle requête.
+-- Créer une table ayant une colonne de type INTEGER, auto-incrémentée.
+-- Où cette table s’est-elle créée ? Comment pouvez-vous la visualiser ?
+
+CREATE TABLE nom_table (
+  colonne INT AUTO_INCREMENT,
+  KEY colonne_key (colonne)
+);
+
+-- Aucune base n'a été sélectionnée
+-- => Il faut bien sélectionner une base de données
+
+-- 2. Créer une nouvelle base de données (CREATE DATABASE nom_de_votre_bd)
+-- Créer une table contenant 2 colonnes dont une possède la contrainte UNIQUE, dans cette base de données. 
+
+CREATE DATABASE exo2;
+USE exo2; -- D'utiliser la base de données récemment créée
+CREATE TABLE nom_table (
+  col1 INT UNIQUE,
+  col2 VARCHAR(20)
+);
+
+-- 3. A l’aide de l’instruction « SELECT », afficher le message « Bonjour, 
+-- et bienvenue dans le cours de Transact SQL ! »
+
+
+SELECT "Bonjour, et bienvenue dans le cours de SQL Procédural"
+
+-- 4. Insérer une ligne de valeurs dans la table créée au point 1.2.
+-- Insérer une seconde ligne identique. Un message d’erreur doit apparaître. 
+-- A quelle ligne se situe le message ? Comment trouver cette ligne instantanément ?
+-- Comprenez-vous ce message ? Comment pouvez-vous faire pour le comprendre si l’anglais n’est pas votre fort ?
+
+
+
+-- 5. A l’aide d’une instruction de simple « SELECT », 
+-- afficher les données contenues dans la table du point 1.2.
+
+
