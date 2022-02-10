@@ -4,6 +4,8 @@
 -- 20220210
 -- 
 
+-- Module 2 - Variables
+
 -- 2.1 À l’aide de la commande « SELECT », affichez le message « Le T-SQL, c’est bien pratique ! »
 
 SELECT "Le SQL Procédural, c'est bien pratique !";

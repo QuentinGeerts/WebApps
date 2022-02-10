@@ -4,7 +4,7 @@
 -- 20220210
 -- 
 
--- Module 1
+-- Module 1 - Introduction
 
 -- 1. Se connecter à MySQL et créer une nouvelle requête.
 -- Créer une table ayant une colonne de type INTEGER, auto-incrémentée.
