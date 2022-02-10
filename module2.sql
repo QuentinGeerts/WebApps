@@ -5,15 +5,25 @@
 
 -- 2.1 À l’aide de la commande « SELECT », affichez le message « Le T-SQL, c’est bien pratique ! »
 
+SELECT "Le SQL Procédural, c'est bien pratique !";
 
+-- 2.2 Créer à présent une variable qui contiendra la phrase affichée au point 2.1.
+-- Afficher le contenu de la variable via la commande « SELECT »
 
--- 2.2 Créer à présent une variable qui contiendra la phrase affichée au point 2.1. Afficher le contenu de la variable via la commande « SELECT »
-
-
+SET @phrase = "Le SQL Procédural, c'est bien pratique !";
+SELECT @phrase;
 
 -- 2.3 Déclarer une variable qui contiendra le nombre de professeur de la table « professor » de votre base de données DBSlide. Affichez le contenu de cette variable
 
+USE dbslide;
 
+-- 1ere façon de faire
+SELECT @nbProfessor := COUNT(*)
+FROM professor;
+
+-- 2e façon de faire
+SET @nbProfessor2 = (SELECT COUNT(*) FROM professor);
+SELECT @nbProfessor2;
 
 -- 2.4 Déclarer une variable nommée « prenom_prof ». Remplir cette variable avec le prénom de M. Giot et afficher le contenu de la variable. Vérifier que cette valeur est bien « Pierre »
 
@@ -23,7 +33,10 @@
 
 
 
--- 2.6 À l’aide de plusieurs variables, afficher la phrase « [Nom] [Prénom] est le professeur numéro [professor_id], a été engagé le [date d’entrée en service du professor] et travaille dans la section [nom de la section] »
+-- 2.6 À l’aide de plusieurs variables, afficher la phrase 
+-- « [Nom] [Prénom] est le professeur numéro [professor_id], 
+-- a été engagé le [date d’entrée en service du professor] et 
+-- travaille dans la section [nom de la section] »
 -- Les informations dont vous avez besoin se trouvent dans les tables « professor » et « section »
 
 
