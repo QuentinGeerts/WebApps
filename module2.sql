@@ -30,11 +30,20 @@ SELECT @nbProfessor2;
 
 -- 2.4 Déclarer une variable nommée « prenom_prof ». Remplir cette variable avec le prénom de M. Giot et afficher le contenu de la variable. Vérifier que cette valeur est bien « Pierre »
 
+SET @prenom_prof = (
+  SELECT professor_surname
+  FROM professor
+  WHERE professor_name LIKE 'giot'
+  -- WHERE professor_name = 'giot'
+);
 
+SELECT @prenom_prof; -- output : Pierre OK
 
 -- 2.5 Créer une variable nommée « date_du_jour » qui aura la valeur de la date du jour. Afficher cette date.
 
+SET @date_du_jour = CURRENT_DATE();
 
+SELECT @date_du_jour;
 
 -- 2.6 À l’aide de plusieurs variables, afficher la phrase 
 -- « [Nom] [Prénom] est le professeur numéro [professor_id], 
@@ -42,7 +51,32 @@ SELECT @nbProfessor2;
 -- travaille dans la section [nom de la section] »
 -- Les informations dont vous avez besoin se trouvent dans les tables « professor » et « section »
 
+SELECT 
+  @nom := professor_name,
+  @prenom := professor_surname,
+  @id := professor_id,
+  @date_entree := professor_hire_date,
+  @nom_section := section_name
+FROM professor p
+JOIN section s
+  ON p.section_id = s.section_id
+WHERE professor_id = 2;
 
+SELECT CONCAT(@nom, ' ', @prenom, ' est le professeur numéro ', @id , ', a été engagé le ', @date_entree, ' et travaille dans la section ', @nom_section);
+
+-- OU
+
+SELECT 
+  CONCAT(
+    @nom := professor_name, ' ',
+    @prenom := professor_surname, ' est le professeur numéro ',
+    @id := professor_id, ', a été engagé le ',
+    @date_entree := professor_hire_date, ' et travaille dans la section ',
+    @nom_section := section_name
+  )
+FROM professor p
+JOIN section s
+  ON p.section_id = s.section_id;
 
 -- 2.7 Créer une variable contenant votre âge. Créer une seconde variable contenant votre nom. Afficher maintenant la concaténation de ces variables.
 -- Cette opération pose-t-elle problème ? Avez-vous utilisé la fonction CONVERT dans ce cas ? Aurait-elle été utile ? Si vous ne l’avez pas utilisée, n’hésitez pas à la faire ! Cela change-t-il la réponse ?
