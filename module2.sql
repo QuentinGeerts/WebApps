@@ -1,7 +1,8 @@
 --
---
---
---
+-- SQL Procédural
+-- Web Apps 
+-- 20220210
+-- 
 
 -- 2.1 À l’aide de la commande « SELECT », affichez le message « Le T-SQL, c’est bien pratique ! »
 
