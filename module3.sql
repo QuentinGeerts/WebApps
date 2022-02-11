@@ -54,6 +54,39 @@ CALL anciennete(5); -- OK
 -- S’il existe dans la table student, affichez son id.
 -- Sinon, signalez que l'étudiant n'existe pas.
 
+DROP PROCEDURE IF EXISTS etudiantExiste;
+
+DELIMITER |
+
+CREATE PROCEDURE etudiantExiste( IN nom VARCHAR(50), IN prenom VARCHAR(50) )
+BEGIN
+
+  -- Récupération de l'id de l'étudiant
+  -- id ou null si pas trouvé
+  SET @existeEtudiant = (
+    SELECT student_id 
+    FROM student 
+    WHERE last_name = nom 
+      AND first_name = prenom
+  );
+
+  -- Vérification de la valeur de l'id
+  -- Si valeur => existe
+  -- Si null => n'existe pas
+  IF @existeEtudiant IS NOT NULL THEN
+    -- L'étudiant existe
+    SELECT @existeEtudiant "Il porte l'id";
+  ELSE
+    -- L'étudiant n'existe pas
+    SELECT CONCAT("L'étudiant ", prenom, " ", nom, " n'existe pas.") "Attention";
+  END IF;
+
+END |
+
+DELIMITER ;
+
+CALL etudiantExiste('Geerts', 'Quentin'); -- KO
+CALL etudiantExiste('Depp', 'Johnny'); -- OK
 
 
 -- 3.3 Si le nombre d'étudiants qui ont plus de 10 à leur résultat annuel est plus important que
