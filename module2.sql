@@ -16,7 +16,8 @@ SELECT "Le SQL Procédural, c'est bien pratique !";
 SET @phrase = "Le SQL Procédural, c'est bien pratique !";
 SELECT @phrase;
 
--- 2.3 Déclarer une variable qui contiendra le nombre de professeur de la table « professor » de votre base de données DBSlide. Affichez le contenu de cette variable
+-- 2.3 Déclarer une variable qui contiendra le nombre de professeur de la table « professor » de 
+-- votre base de données DBSlide. Affichez le contenu de cette variable
 
 USE dbslide;
 
@@ -28,7 +29,8 @@ FROM professor;
 SET @nbProfessor2 = (SELECT COUNT(*) FROM professor);
 SELECT @nbProfessor2;
 
--- 2.4 Déclarer une variable nommée « prenom_prof ». Remplir cette variable avec le prénom de M. Giot et afficher le contenu de la variable. Vérifier que cette valeur est bien « Pierre »
+-- 2.4 Déclarer une variable nommée « prenom_prof ». Remplir cette variable avec le prénom de M. Giot et 
+-- afficher le contenu de la variable. Vérifier que cette valeur est bien « Pierre »
 
 SET @prenom_prof = (
   SELECT professor_surname
@@ -120,12 +122,57 @@ SELECT * FROM temp;
 -- Déconnectez-vous de MySQL et reconnectez-vous. 
 -- La table temporaire existe-t-elle toujours ?
 
+-- Créer la table tmp
+CREATE TEMPORARY TABLE tmp (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(30),
+  prenom VARCHAR(30)
+);
 
+-- Insérer le nom et le prénom
+INSERT INTO tmp (nom, prenom)
+SELECT 
+  professor_name,
+  professor_surname
+FROM
+  professor;
 
--- 2.10 Déclarer une table temporaire qui aura pour colonnes « NomPrenom », « DateEmbauche » et « Salaire ». Remplir cette table avec les données de tous les professor de la table professor qui ont plus de 2000 euros de salaire. Afficher le contenu de cette table grâce à un select.
+SELECT * FROM tmp;
 
+-- 2.10 Déclarer une table temporaire qui aura pour colonnes « NomPrenom », « DateEmbauche » et « Salaire ». 
+-- Remplir cette table avec les données de tous les professor de la table professor qui ont plus de 2000 
+-- euros de salaire. Afficher le contenu de cette table grâce à un select.
 
+-- Créer la table temp
+CREATE TEMPORARY TABLE tmp (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom_prenom VARCHAR(61),
+  date_embauche DATETIME,
+  salaire INT
+);
+
+-- Insérer les données à l'intérieur de ma TABLE
+INSERT INTO tmp
+SELECT
+  NULL,
+  CONCAT(professor_name, ' ', professor_surname),
+  professor_hire_date,
+  professor_wage
+FROM
+  professor
+WHERE
+  professor_wage > 2000;
+
+-- Afficher le contenu de la table temporaire
+SELECT * FROM tmp;
 
 -- 2.11 Récupérer le salaire max, le stocker dans une variable temp et faite en sorte d'afficher le type.
 
+-- Récupérer le salaire maximum
+SET @max_salaire = (SELECT MAX(professor_wage) FROM professor);
 
+-- Créer la table tmp
+CREATE TEMPORARY TABLE tmp SELECT @max_salaire;
+
+-- Afficher les informations de la table
+DESC tmp;
