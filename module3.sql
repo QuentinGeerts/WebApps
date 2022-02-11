@@ -46,7 +46,8 @@ END |
 
 DELIMITER ;
 
-CALL anciennete(1);
+CALL anciennete(1); -- KO
+CALL anciennete(5); -- OK
 
 -- 3.2 Créer une procédure qui reçoit les (nom, prenom) de l'étudiant et signale si l'étudiant
 -- existe.
