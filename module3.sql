@@ -135,9 +135,31 @@ CALL note();
 -- - dans le cas où l'étudiant est né entre 1980 et 2000, il est un Junior.
 -- - Entre 1970 et 1979 il est un Qualified.
 -- - Entre 1950 et 1969, il est Confirmed,
--- - sinon, c’est un Vice President ! Puis affichez le contenu de la table temporaire par un select.
+-- - sinon, c’est un Vice President ! 
+-- Puis affichez le contenu de la table temporaire par un select.
 
+CREATE TEMPORARY TABLE TMP_etudiant (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(50),
+  prenom VARCHAR(50),
+  suivi_etudiant VARCHAR(20)
+);
 
+INSERT INTO TMP_etudiant
+SELECT
+  NULL,
+  last_name,
+  first_name,
+  CASE
+    WHEN YEAR(birth_date) > 2000 THEN 'Impossible'
+    WHEN YEAR(birth_date) BETWEEN 1980 AND 2000 THEN 'Junior'
+    WHEN YEAR(birth_date) BETWEEN 1970 AND 1978 THEN 'Qualified'
+    WHEN YEAR(birth_date) BETWEEN 1950 AND 1969 THEN 'Confirmed'
+    ELSE 'Vice Président'
+  END
+FROM student;
+
+SELECT * FROM TMP_etudiant;
 
 -- 3.5 Créer une procédure qui reçoit, l'id du professeur. En fonction de l'année
 -- d'engagement du professeur traité, prévenez-nous s’il sera bientôt à la retraite (+30
