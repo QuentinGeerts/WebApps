@@ -167,4 +167,31 @@ SELECT * FROM TMP_etudiant;
 -- imminente pour [nom_employé] ! » ou justement, « [nom_employé] a encore de
 -- longues années à faire chez nous ! ».
 
+DROP PROCEDURE IF EXISTS retraite;
 
+DELIMITER |
+
+CREATE PROCEDURE retraite ( IN prof_id INT )
+BEGIN
+
+  DECLARE nom_employe VARCHAR(30);
+  DECLARE nb_annees INT DEFAULT 0;
+
+  SELECT 
+    professor_name,
+    (YEAR(CURRENT_DATE()) - YEAR(professor_hire_date))
+  INTO 
+    nom_employe,
+    nb_annees
+  FROM professor
+  WHERE professor_id = prof_id;
+
+  IF nb_annees >= 30 THEN
+    SELECT CONCAT("Attention, retraite imminente pour ", nom_employe, " (", nb_annees, ")") AS "Verdict";
+  ELSE
+    SELECT CONCAT(nom_employe, " a encore de longues années à faire , ", " (", nb_annees, ")") AS "Verdict";
+  END IF;
+END |
+DELIMITER ;
+
+CALL retraite(2);
