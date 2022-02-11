@@ -14,16 +14,16 @@
 
 
 
-
 -- 3.2 Créer une procédure qui reçoit les (nom, prenom) de l'étudiant et signale si l'étudiant
 -- existe.
 -- S’il existe dans la table student, affichez son id.
 -- Sinon, signalez que l'étudiant n'existe pas.
--- 
+
+
+
 -- 3.3 Si le nombre d'étudiants qui ont plus de 10 à leur résultat annuel est plus important que
 -- le nombre d'étudiants qui ont moins de 10, affichez « C'est un bon cru ! » Sinon,
 -- indiquez « Aie... ».
-
 
 
 
@@ -34,7 +34,6 @@
 -- - Entre 1970 et 1979 il est un Qualified.
 -- - Entre 1950 et 1969, il est Confirmed,
 -- - sinon, c’est un Vice President ! Puis affichez le contenu de la table temporaire par un select.
-
 
 
 
