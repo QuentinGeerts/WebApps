@@ -93,7 +93,41 @@ CALL etudiantExiste('Depp', 'Johnny'); -- OK
 -- le nombre d'étudiants qui ont moins de 10, affichez « C'est un bon cru ! » Sinon,
 -- indiquez « Aie... ».
 
+DROP PROCEDURE IF EXISTS note;
 
+DELIMITER |
+CREATE PROCEDURE note()
+BEGIN
+
+  SET @nbEtudiantsSup10 = (
+    SELECT 
+      COUNT(*)
+    FROM STUDENT
+    WHERE 
+      year_result > 10
+  );
+  
+  SET @nbEtudiantsInf10 = (
+    SELECT 
+      COUNT(*)
+    FROM STUDENT
+    WHERE 
+      year_result < 10
+  );
+
+  IF @nbEtudiantsSup10 > @nbEtudiantsInf10 THEN
+    -- Majorité positive
+    SELECT "C'est un bon cru.." AS "Verdict";
+  ELSE
+    -- Majorité négative
+    SELECT "Aie..." AS "Verdict";
+
+  END IF;
+
+END |
+DELIMITER ;
+
+CALL note();
 
 -- 3.4 Stocker dans une table temporaire le nom, prenom et suivi_etudiant. Cette dernière
 -- contiendra le statut des étudiants. Selon le cas :
