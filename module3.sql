@@ -6,13 +6,47 @@
 
 -- Module 3 - Contrôles conditionnels
 
--- Créer une procédure qui reçoit en paramètre (professor_id) et qui avertit selon
+-- 3.1 Créer une procédure qui reçoit en paramètre (professor_id) et qui avertit selon
 -- l'ancienneté du professeur.
 -- Par exemple, pour l’employé numéro 5 de la table professor, examinez sa date
 -- d’arrivée dans l'université. Si son ancienneté est de plus de 20 ans, afficher la phrase
 -- « L’employé 5 est un Senior ». Sinon, il faudra signaler qu’il s’agit d’un Junior.
 
+DROP PROCEDURE IF EXISTS anciennete;
 
+DELIMITER |
+
+CREATE PROCEDURE anciennete ( IN prof_id INT )
+BEGIN
+
+  -- Récupération en année de la date d'embauche du professeur
+  SET @date_embauche = (
+    SELECT 
+      YEAR(professor_hire_date)
+    FROM
+      professor
+    WHERE
+      professor_id = prof_id
+  );
+
+  -- Récupération en année de la date d'aujourd'hui
+  SET @aujourdhui = (
+    SELECT
+      YEAR(CURRENT_DATE())
+  );
+
+  -- Vérification de l'ancienneté
+  IF (@aujourdhui - @date_embauche) > 20 THEN
+    SELECT CONCAT("L'employé ", prof_id, " est un senior");
+  ELSE
+    SELECT CONCAT("L'employé ", prof_id, " est un junior");
+  END IF;
+
+END |
+
+DELIMITER ;
+
+CALL anciennete(1);
 
 -- 3.2 Créer une procédure qui reçoit les (nom, prenom) de l'étudiant et signale si l'étudiant
 -- existe.
